@@ -1,13 +1,20 @@
 {
   "name": "kief",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Simple hash router inspired by redux",
+  "author": "idris-maps",
+  "keywords": ["hash", "router", "redux", "lit-html", "hyperHTML", "jsx"],
+  "main": "./dist/index.js",
+  "types": "./src/types.d.ts",
   "scripts": {
-    "test": "ava --verbose"
+    "test": "ava --verbose",
+    "build": "tsc"
   },
-  "author": "",
-  "license": "ISC",
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/idris-maps/kief.git"
+  },
+  "license": "GPLv2",
   "devDependencies": {
     "ava": "^2.1.0",
     "ts-node": "^8.3.0",
