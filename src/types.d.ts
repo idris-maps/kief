@@ -13,3 +13,10 @@ export interface Query {
 export interface Params {
   [key: string]: string
 }
+
+export interface RouteInfo {
+  matchesRoute: boolean
+  params: Params
+  query: Query
+  route?: string
+}

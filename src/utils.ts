@@ -1,4 +1,4 @@
-import { Route, RoutePart, Query, Params } from './types'
+import { Route, Query, Params, RouteInfo } from './types'
 
 export const getRouteParts = (route: string): Route =>
   decodeURIComponent(route).trim()
@@ -74,4 +74,21 @@ export const getParams = (hash: string, route: Route): Params => {
   const hashparts = getHashParts(hash)
   return route.filter(({ isParam }) => isParam)
     .reduce((acc, { part, index }) => ({ ...acc, [part.substr(1)]: hashparts[index] }), {})
+}
+
+export const getRouteInfo = (hash: string, paths: string[]): RouteInfo => {
+  const routes = paths.map(getRouteParts)
+  const matchingRoute = getMatchingRoute(hash, routes)
+  return matchingRoute
+    ? {
+      matchesRoute: true,
+      route: getRouteFromParts(matchingRoute, paths),
+      params: getParams(hash, matchingRoute),
+      query: getQuery(hash),
+    }
+    : {
+      matchesRoute: false,
+      params: {},
+      query: getQuery(hash),
+    }
 }

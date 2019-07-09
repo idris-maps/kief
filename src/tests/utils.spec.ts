@@ -4,16 +4,9 @@ import {
   getParams,
   getQuery,
   getRouteFromParts,
+  getRouteInfo,
   getRouteParts,
 } from '../utils'
-
-test('getParts', t => {
-  const parts = getRouteParts('/hello/:world')
-  t.true(Array.isArray(parts))
-  t.is(parts.length, 2)
-  t.deepEqual(parts[0], { index: 0, isParam: false, part: 'hello' })
-  t.deepEqual(parts[1], { index: 1, isParam: true, part: ':world' })
-})
 
 const route = {
   ABOUT: '/about',
@@ -24,6 +17,14 @@ const route = {
 }
 
 const routes: string[] = Object.keys(route).map(key => route[key])
+
+test('getParts', t => {
+  const parts = getRouteParts('/hello/:world')
+  t.true(Array.isArray(parts))
+  t.is(parts.length, 2)
+  t.deepEqual(parts[0], { index: 0, isParam: false, part: 'hello' })
+  t.deepEqual(parts[1], { index: 1, isParam: true, part: ':world' })
+})
 
 test('getMatchingRoute', t => {
   const getRoute = (hash: string): string => {
@@ -56,4 +57,12 @@ test('getParams', t => {
   ]
   t.deepEqual(getParams('#/users/1/contracts/23', route), { id: '1', contractId: '23' })
   t.deepEqual(getParams('#/users/1/contracts/23?foo=bar', route), { id: '1', contractId: '23' })
+})
+
+test('getRouteInfo', t => {
+  t.deepEqual(getRouteInfo('#about?foo=bar', routes), { matchesRoute: true, route: route.ABOUT, params: {}, query: { foo: 'bar' } })
+  t.deepEqual(getRouteInfo('#!/users/12', routes), { matchesRoute: true, route: route.USER, params: { id: '12' }, query: {} })
+  t.deepEqual(getRouteInfo('#not-a-route', routes), { matchesRoute: false, params: {}, query: {} })
+  t.deepEqual(getRouteInfo('#not-a-route?foo=1', routes), { matchesRoute: false, params: {}, query: { foo: '1' } })
+  t.deepEqual(getRouteInfo('without-hash', routes), { matchesRoute: false, params: {}, query: {} })
 })
