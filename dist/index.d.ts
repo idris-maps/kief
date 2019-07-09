@@ -1,10 +1,11 @@
-import { RouteInfo } from './types';
+import { Subscriber } from './types';
 declare class Router {
     window: Window;
     paths: string[];
+    subscribers: Subscriber[];
     constructor(paths: string[]);
-    onHashChange(): void;
-    subscribe(routeInfo: RouteInfo): RouteInfo;
+    private onHashChange;
+    subscribe(subscriber: Subscriber): void;
 }
 declare const _default: (paths: string[]) => Router;
 export default _default;

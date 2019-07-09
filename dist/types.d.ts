@@ -20,3 +20,5 @@ export interface RouteInfo {
   query: Query
   route?: string
 }
+
+type Subscriber = (routeInfo: RouteInfo) => any

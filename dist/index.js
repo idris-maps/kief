@@ -6,15 +6,17 @@ var Router = /** @class */ (function () {
         var _this = this;
         this.paths = paths;
         this.window = window;
+        this.subscribers = [];
         this.window.addEventListener('hashchange', function () { return _this.onHashChange(); });
         this.onHashChange();
     }
     Router.prototype.onHashChange = function () {
         var hash = window.location.hash;
-        this.subscribe(utils_1.getRouteInfo(hash, this.paths));
+        var routeInfo = utils_1.getRouteInfo(hash, this.paths);
+        this.subscribers.forEach(function (sub) { return sub(routeInfo); });
     };
-    Router.prototype.subscribe = function (routeInfo) {
-        return routeInfo;
+    Router.prototype.subscribe = function (subscriber) {
+        this.subscribers = this.subscribers.concat([subscriber]);
     };
     return Router;
 }());

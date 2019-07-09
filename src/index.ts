@@ -1,23 +1,26 @@
 import { getRouteInfo } from './utils'
-import { RouteInfo } from './types'
+import { Subscriber } from './types'
 
 class Router {
   window: Window
   paths: string[]
+  subscribers: Subscriber[]
   constructor(paths: string[]) {
     this.paths = paths
     this.window = window
+    this.subscribers = []
     this.window.addEventListener('hashchange', () => this.onHashChange())
     this.onHashChange()
   }
 
-  onHashChange() {
+  private onHashChange() {
     const hash = window.location.hash
-    this.subscribe(getRouteInfo(hash, this.paths))
+    const routeInfo = getRouteInfo(hash, this.paths)
+    this.subscribers.forEach(sub => sub(routeInfo))
   }
 
-  subscribe(routeInfo: RouteInfo) {
-    return routeInfo
+  subscribe(subscriber: Subscriber) {
+    this.subscribers = [...this.subscribers, subscriber]
   }
 }
 
