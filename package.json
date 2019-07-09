@@ -1,11 +1,11 @@
 {
   "name": "kief",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "Simple hash router inspired by redux",
   "author": "idris-maps",
   "keywords": ["hash", "router", "redux", "lit-html", "hyperHTML", "jsx"],
   "main": "./dist/index.js",
-  "types": "./src/types.d.ts",
+  "types": "./dist/index.d.ts",
   "scripts": {
     "test": "ava --verbose",
     "build": "tsc"
