@@ -2,14 +2,17 @@ import { getRouteInfo } from './utils'
 import { Subscriber } from './types'
 
 class Router {
+
   window: Window
   paths: string[]
   subscribers: Subscriber[]
+
   constructor(paths: string[]) {
     this.paths = paths
     this.window = window
     this.subscribers = []
     this.window.addEventListener('hashchange', () => this.onHashChange())
+    this.window.addEventListener('load', () => this.onHashChange())
     this.onHashChange()
   }
 
