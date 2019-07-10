@@ -33,6 +33,7 @@ class Router {
   goTo(hash: string) {
     return goTo(hash)
   }
+
 }
 
 export default (paths: string[]) => new Router(paths)

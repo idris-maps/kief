@@ -1,6 +1,6 @@
 {
   "name": "kief",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Simple hash router inspired by redux",
   "author": "idris-maps",
   "keywords": ["hash", "router", "redux", "lit-html", "hyperHTML", "jsx"],
