@@ -1,6 +1,10 @@
 import { getRouteInfo } from './utils'
 import { Subscriber } from './types'
 
+export const goTo = (hash: string) => {
+    window.location.hash = hash
+}
+
 class Router {
 
   window: Window
@@ -24,6 +28,10 @@ class Router {
 
   subscribe(subscriber: Subscriber) {
     this.subscribers = [...this.subscribers, subscriber]
+  }
+
+  goTo(hash: string) {
+    return goTo(hash)
   }
 }
 
